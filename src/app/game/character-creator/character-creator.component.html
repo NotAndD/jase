@@ -1,0 +1,101 @@
+<div style="padding-bottom: 50px">
+  <form (ngSubmit)="onSubmit()" #characterForm="ngForm">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-secondary">
+          <span>Roll a random character from the Poll:</span>
+          <button type="button" style="margin-left: 5px" class="btn btn-success" (click)="onReRoll(false)">Roll</button>
+          <hr />
+          <p>
+            To get general examples of how the character in this role should be.. or just to play with pre-made ready-to-play descriptions, roll a random character.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="character.name" name="name">
+      </div>
+
+      <div class="col-md-6">
+        <div class="alert alert-secondary">
+          <p>
+            The name of the character. It will be used in the story wherever needed. Example: "[Caleb] lifted his hands and grinned"
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 form-group">
+        <label for="gender">Gender</label>
+        <select class="form-control" id="gender" required [(ngModel)]="selectedGender" name="gender">
+          <option *ngFor="let t of genders" [value]="t">{{t}}</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <div class="alert alert-secondary">
+          <p>
+            The gender is used to select the correct words where needed (he or she? Him or her? Boy or Girl? And so on..) and it may be used to lock / unlock certain actions which can't work with both genders.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 form-group">
+        <label for="fullDesc">Full Description</label>
+        <textarea type="text" rows="4" class="md-textarea md-textarea-auto form-control" id="fullDesc" required
+          [(ngModel)]="character.fullDesc" name="fullDesc"></textarea>
+      </div>
+
+      <div class="col-md-6">
+        <div class="alert alert-secondary">
+          <p>
+            The full description will be used to describe the character only once, when the character first make his / her appearance.. so it isn't that important.
+          </p>
+          <hr />
+          <p>
+            Just keep it short and also, it should work if used this way: "A [your full description here]."
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 form-group">
+        <label for="shortDesc">Short Descriptions</label>
+        <textarea type="text" rows="6" class="md-textarea md-textarea-auto form-control" id="shortDesc" required
+          [(ngModel)]="shortDesc" name="shortDesc"></textarea>
+      </div>
+
+      <div class="col-md-6">
+        <div class="alert alert-secondary">
+          <p>
+            Short descriptions are used in place of the name, wherever needed in the story to select the right subject. Insert multiple short descriptions, each one on a different line (the more, the better).
+          </p>
+          <hr />
+          <p>
+            Examples: "The [muscled dragon] shifted position and grinned.", "Unfortunately for the [deer], her plan didn't work", "The [black feline] automatically made a step back, terrorized."
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 form-group">
+        <label for="offensiveDesc">Offensive Short Descriptions</label>
+        <textarea type="text" rows="6" class="md-textarea md-textarea-auto form-control" id="offensiveDesc" required
+          [(ngModel)]="offensiveDesc" name="offensiveDesc"></textarea>
+      </div>
+
+      <div class="col-md-6">
+        <div class="alert alert-secondary">
+          <p>
+            Offensive short descriptions works exactly as normal short descriptions. The main difference is that they are used when the subject needs to be sort-of humiliated or offended. Insert multiple short descriptions, each one on a different line (the more, the better).
+          </p>
+          <hr />
+          <p>
+            Examples: "Sooo.. how are ya doing, [runt]?", "It was true.. compared with the others, she could be considered [weakling]".
+          </p>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-warning" [disabled]="!characterForm.form.valid">Next</button>
+
+    </div>
+  </form>
+</div>

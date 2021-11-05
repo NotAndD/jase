@@ -1,0 +1,79 @@
+<div class="container">
+  <form (ngSubmit)="onSubmit()" #actionForm="ngForm">
+    <div class="row" style="margin-top: 10px">
+
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="text">Text</label>
+          <textarea #text type="text" rows="6" id="text" required
+            class="md-textarea md-textarea-auto form-control" 
+            [(ngModel)]="newPar.text" name="text"></textarea>
+        </div>
+
+        <div>
+          <span class="margin-rt-3">Player:</span>
+
+          <button type="button" (click)="onBtnAdd('[p_name]')" 
+            class="btn btn-outline-warning btn-small">Name</button>
+          <button type="button" (click)="onBtnAdd('[p_full_desc]')" 
+            class="btn btn-outline-warning btn-small">Full desc</button>
+          <button type="button" (click)="onBtnAdd('[p_short_desc]')" 
+            class="btn btn-outline-warning btn-small">Short desc</button>
+          <button type="button" (click)="onBtnAdd('[p_off_desc]')" 
+            class="btn btn-outline-warning btn-small">Offensive desc</button>
+          <button type="button" (click)="onBtnAdd('[p_he_she]')" 
+            class="btn btn-outline-warning btn-small">He / She</button>
+          <button type="button" (click)="onBtnAdd('[p_his_her]')" 
+            class="btn btn-outline-warning btn-small">His / Her</button>
+          <button type="button" (click)="onBtnAdd('[p_him_her]')" 
+            class="btn btn-outline-warning btn-small">Him / Her</button>
+          <button type="button" (click)="onBtnAdd('[p_his_hers]')" 
+            class="btn btn-outline-warning btn-small">His / Hers</button>
+          <button type="button" (click)="onBtnAdd('[p_boy_girl]')" 
+            class="btn btn-outline-warning btn-small">Boy / Girl</button>
+        </div>
+        <div>
+          <span class="margin-rt-3">Other:</span>
+
+          <button type="button" (click)="onBtnAdd('[o_name]')" 
+            class="btn btn-outline-warning btn-small">Name</button>
+          <button type="button" (click)="onBtnAdd('[o_full_desc]')" 
+            class="btn btn-outline-warning btn-small">Full desc</button>
+          <button type="button" (click)="onBtnAdd('[o_short_desc]')" 
+            class="btn btn-outline-warning btn-small">Short desc</button>
+          <button type="button" (click)="onBtnAdd('[o_off_desc]')" 
+            class="btn btn-outline-warning btn-small">Offensive desc</button>
+          <button type="button" (click)="onBtnAdd('[o_he_she]')" 
+            class="btn btn-outline-warning btn-small">He / She</button>
+          <button type="button" (click)="onBtnAdd('[o_his_her]')" 
+            class="btn btn-outline-warning btn-small">His / Her</button>
+          <button type="button" (click)="onBtnAdd('[o_him_her]')" 
+            class="btn btn-outline-warning btn-small">Him / Her</button>
+          <button type="button" (click)="onBtnAdd('[o_his_hers]')" 
+            class="btn btn-outline-warning btn-small">His / Hers</button>
+            <button type="button" (click)="onBtnAdd('[o_boy_girl]')" 
+              class="btn btn-outline-warning btn-small">Boy / Girl</button>
+        </div>
+        <div>
+          <span class="margin-rt-3">Utils:</span>
+  
+          <button type="button" (click)="onBtnAdd('[inner=]')" 
+              class="btn btn-outline-warning btn-small">Inner link</button>
+          <button type="button" (click)="onBtnAdd('[obscure]', '[/obscure]')" 
+              class="btn btn-outline-warning btn-small">Obscure text</button>
+        </div>
+      </div>
+
+      <div class="col-sm-12" style="margin-top: 10px">
+          <button type="button" class="btn btn-warning margin-rt-3" (click)="onCancel()">
+              Cancel
+          </button>
+          <button type="submit" [disabled]="!actionForm.form.valid" 
+            class="btn btn-warning margin-rt-3">
+              Next
+          </button>
+      </div>
+
+    </div>
+  </form>
+</div>

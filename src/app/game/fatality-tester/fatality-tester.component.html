@@ -1,0 +1,47 @@
+<div class="modal fatality-container">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content no-background">
+      <div class="modal-body">
+        <div style="text-align: center; margin-bottom: 5px;">
+          <span class="float-left">{{leftWord | uppercase}}</span>
+          <span>---</span>
+          <span class="float-right">{{rightWord | uppercase}}</span>
+        </div>
+        <div class="progress bg-transparent" *ngIf="showSecondBar">
+          <div class="progress-bar bg-transparent" role="progressbar" [attr.aria-valuenow]="situation.timingMin" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width': (situation.timingCenter - 1) + '%' }"></div>
+          <div class="progress-bar bg-danger timing-bar-up" role="progressbar" [attr.aria-valuenow]="situation.timingMax" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width': (2) + '%' }"></div>
+        </div>
+        <div class="progress">
+          <div class="progress-bar bg-danger" role="progressbar" [attr.aria-valuenow]="situation.time" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width': situation.time + '%' }"></div>
+        </div>
+        <div class="progress bg-transparent" *ngIf="showSecondBar">
+          <div class="progress-bar bg-transparent" role="progressbar" [attr.aria-valuenow]="situation.timingMin" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width': (situation.timingCenter - 1) + '%' }"></div>
+          <div class="progress-bar bg-danger timing-bar-down" role="progressbar" [attr.aria-valuenow]="situation.timingMax" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ 'width': (2) + '%' }"></div>
+        </div>
+        <div *ngIf="showSingleKeyMode">
+          <div style="text-align: center; margin-top: 10px;">
+            <h3 *ngIf="!isDone && !noKeyboardMode">{{singleKeyModeText}}</h3>
+            <h3 *ngIf="isDone && isSuccess">Success</h3>
+            <h3 *ngIf="isDone && !isSuccess">Failure</h3>
+          </div>
+  
+          <div *ngIf="!isDone && noKeyboardMode" (click)="onInputAccepted()" class="smartphone-tap-area">
+              <h3>{{singleKeyModeText}}</h3>
+          </div>
+        </div>
+        
+        <div *ngIf="!showSingleKeyMode">
+          <div style="text-align: center; margin-top: 10px;">
+            <h4 *ngIf="previousKey" style="color: darkslategray;">PRESS {{previousKey | uppercase}}</h4>
+            <h3 *ngIf="!isDone">PRESS {{currentKey | uppercase}}</h3>
+            <h3 *ngIf="isDone && isSuccess">Success</h3>
+            <h3 *ngIf="isDone && !isSuccess">Failure</h3>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="click-preventing">
+</div>

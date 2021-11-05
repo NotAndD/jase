@@ -1,0 +1,121 @@
+<div>
+  <h3>
+    Game options
+  </h3>
+  <hr />
+  <form (ngSubmit)="onGameOptionsSubmit()" #gameForm="ngForm">
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="optionSmartphone" 
+        [(ngModel)]="optionSmartphone" name="optionSmartphone">
+      <label for="optionSmartphone">
+        I'm playing from Smartphone / Tablet
+      </label>
+      <p>
+        This is mandatory if you play from smartphone / tablet. Some things will adjust themself to be played without keyboard and with built-in zoom.
+      </p>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="optionEditMode" 
+        [(ngModel)]="optionEditMode" name="optionEditMode">
+      <label for="optionEditMode">
+        Edit mode
+      </label>
+      <p>
+        You'll be able to add new paragraphs and later save them.
+      </p>
+    </div>
+
+    <hr />
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="optionMusic" 
+        [(ngModel)]="optionMusic" name="optionMusic">
+      <label for="optionMusic">
+        Enable Music-In-Game
+      </label>
+      <p>
+        Audio tracks (low volume ambience) will be played as soon as you start the game.
+      </p>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="optionSoundEffects" 
+        [(ngModel)]="optionSoundEffects" name="optionSoundEffects">
+      <label for="optionSoundEffects">
+        Enable Sound Effects
+      </label>
+      <p>
+        Actions will trigger sound effects as you explore the story.
+      </p>
+    </div>
+
+    <hr />
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="optionTutorial" 
+        [(ngModel)]="optionTutorial" name="optionTutorial">
+      <label for="optionTutorial">
+        Turn on Tutorial help-messages
+      </label>
+      <p>
+        Tutorial messages will be displayed when finding something new in the game as you play.
+      </p>
+      <div *ngIf="notFirstTimeTutorial" class="alert alert-primary">
+        Since you already played the game, only new messages will be shown. If you want all the tutorial to get shown once more, click <button class="btn btn-success" style="margin-left: 5px" type="button" (click)="onDeleteTutorial()">Here</button>
+      </div>
+    </div>
+
+    <div class="form-check" *ngIf="optionTutorial">
+      <input type="checkbox" class="form-check-input" id="optionNonInvasiveTutorial" 
+        [(ngModel)]="optionNonInvasiveTutorial" name="optionNonInvasiveTutorial">
+      <label for="optionNonInvasiveTutorial">
+        Non-Invasive Tutorial
+      </label>
+      <p>
+        The tutorial will not prompt automatically, it will only signal that new messages needs to be seen (and you should definitely check it before choosing a new path, unless you want to play with no tips at all)
+      </p>
+    </div>
+    
+    <hr />
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="optionCondition" 
+        [(ngModel)]="optionCondition" name="optionCondition">
+      <label for="optionCondition">
+        Enable QTEs
+      </label>
+      <p>
+        QTEs will be enabled. As you explore the story, you may be prompted for actions or required to be fast.
+      </p>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="optionImpossibleCondition" 
+        [(ngModel)]="optionImpossibleCondition" name="optionImpossibleCondition" [disabled]="!optionCondition">
+      <label for="optionImpossibleCondition">
+        Enable impossible Conditions
+      </label>
+      <p>
+        IMPOSSIBLE QTEs will be shown as available paths where available (They add flavour but CAN'T be won!)
+      </p>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="optionNoKeyboard" 
+        [(ngModel)]="optionNoKeyboard" name="optionNoKeyboard" [disabled]="!optionCondition || optionSmartphone">
+      <label for="optionNoKeyboard">
+        I don't want to use my Keyboard
+      </label>
+      <p>
+        QTEs will not require you to use your keyboard, you're just going to need your mouse.
+      </p>
+    </div>
+
+    <hr />
+
+    <button type="submit" class="btn btn-warning" [disabled]="!gameForm.form.valid">
+      {{ submitButtonText }}
+    </button>
+  </form>
+</div>

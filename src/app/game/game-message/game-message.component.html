@@ -1,0 +1,15 @@
+<div>
+  <hr />
+  <div class="conversation-messages">
+    <p class="msg-text-container">
+      <span *ngFor="let piece of messagePieces">
+        {{ piece.type === 1 ? piece.content : '' }}
+        <button *ngIf="piece.type === 2" (click)="onClick(piece.goTo)"
+          class="message-button">{{piece.content}}</button>
+      </span>
+    </p>
+  </div>
+  <div *ngIf="author" class="message-owner">
+    by {{author}}
+  </div>
+</div>

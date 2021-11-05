@@ -1,0 +1,76 @@
+.new-pars-container {
+    resize: none;
+    width: 100%;
+}
+
+.bordered {
+    border: 1px solid;
+    border-radius: 6px;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-left-5 {
+    margin-left: 5px;
+}
+
+.margins-10 {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.map-box {
+    border: 1px solid;
+    border-radius: 6px;
+    height: 100%;
+}
+
+.map-outer-box {
+    height: 90vh;
+    padding: 10px;
+}
+
+.map-control {
+    height: 10vh;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.game-reviewer-map-panel {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    overflow: hidden;
+}
+
+.game-log-close {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 9999;
+}
+
+.last-row {
+    margin-bottom: 10px;
+}
+
+.ending-title {
+    cursor: pointer;
+}
+
+h4.ending-title:hover {
+    color: white !important;
+}

@@ -1,0 +1,125 @@
+<div *ngIf="!playerReady" class="game-executioner-ask-start">
+  <p class="font-size-20">
+    Prepare to read, to choose, to occasionally be fast.. but, mostly, to have fun and enjoy the story, hopefully :3
+  </p>
+  <h3>Ready to play?</h3>
+  <button class="btn btn-warning" (click)="setReady()">Start</button>
+</div>
+
+<div *ngIf="gamePaused" class="game-executioner-pauser-panel">
+  <app-game-pauser [engine]="engine" (callOnResumeGame)="onResumeGame($event)"
+    (callOnExitGame)="onEndGame($event)"></app-game-pauser>
+</div>
+
+<div *ngIf="gameMap" class="game-executioner-map-panel">
+  <div class="map-control font-size-20">
+    <button type="button" class="btn btn-link" (click)="onShowMap(false)">
+      Hide the Map
+    </button>
+    <span>
+      or
+      <button type="button" class="btn btn-link" (click)="globalMap = !globalMap">
+        Switch
+      </button>
+      to {{ globalMap ? 'Game' : 'Global' }} view
+    </span>
+  </div>
+
+  <div class="map-outer-box">
+    <div class="map-box">
+      <!-- <app-paragraph-map [paragraphs]="simplePars" [onlyVisited]="true" [currentParId]="currentParId"
+        [onlyVisible]="true" [globalMode]="globalMap">
+      </app-paragraph-map> -->
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showGameLog">
+  <div class="text-center">
+    <h3>{{ gameLogTitle }}</h3>
+  </div>
+  <div *ngIf="game.log.length > 0" class="container margin-top-10 font-size-20">
+    <hr />
+    <div *ngFor="let lm of game.log; let i = index"
+        id="{{'log-message-' + i}}">
+      <p>
+        {{ lm }}
+      </p>
+      <hr />
+    </div>
+  </div>
+
+  <button class="game-log-close btn btn-warning" (click)="onShowLog(false)">
+    Close the Log
+  </button>
+</div>
+
+<div *ngIf="playerReady && !gamePaused && !gameMap && !showGameLog" class="container margin-bottom-9rem">
+
+  <div *ngIf="!isEditMode">
+    <div>
+      <ol *ngIf="game.pMap.length > 0" class="game-conversation">
+        <li *ngFor="let p of game.pMap; let i = index"
+          [ngClass]="{ 'shake-animation': game.isShaking && (i + 1 == game.pMap.length) }"
+          id="{{'game-message-' + i}}">
+          <app-game-message [paragraph]="p"
+            [isLastOne]="i + 1 == game.pMap.length"
+            (callOnInnerChoise)="onInnerParagraphChoice($event)">
+          </app-game-message>
+        </li>
+      </ol>
+
+      <div *ngIf="game.isGameOver" class="text-center">
+        <h3>{{ game.isTrueGameOver ? 'Game Over' : 'Game Over?' }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!game.isGameOver">
+      <hr class="game-areas-separator">
+
+      <div style="margin-bottom: 10px">
+          <app-game-action-area
+          [player]="game.player" [other]="game.other"
+          [paragraphs]="nextParagraphs"
+          [conditionsSettling]="game.conditionsSettling"
+          [isRewindAvailable]="game.isRewindAvailable"
+          (callOnEditChange)="onEditModeChange($event)"
+          (callOnChoice)="onParagraphChoice($event)"
+          (callOnGoBack)="onParagraphBack($event)"
+          (callOnShowMap)="onShowMap($event)"
+          (callOnSet)="onParagraphSet($event)"
+          (callOnRefreshCondition)="onRefreshCondition($event)"
+          (callOnShowLog)="onShowLog($event)">
+        </app-game-action-area>
+      </div>
+  </div>
+
+  <div *ngIf="game.isGameOver && !game.isTrueGameOver">
+    <button class="game-execution-back-on-game-over btn btn-warning" 
+      (click)="onParagraphBack(false)">
+      Go back
+    </button>
+  </div>
+  
+  <button *ngIf="!game.isTrueGameOver" class="game-execution-stop btn btn-warning" (click)="onPauseGame()">
+    Pause or Exit
+  </button>
+  
+  <button *ngIf="game.isTrueGameOver" class="game-execution-stop btn btn-warning" (click)="onEndGame()">
+    See Statistics
+  </button>
+
+  <div *ngIf="canShowMessages()">
+    <div class="game-executioner-game-message" (click)="onMessageRead()">
+      <p class="game-executioner-game-message-content">
+        {{ game.playerMessages[game.playerMessages.length -1] }}
+      </p>
+    </div>
+  </div>
+
+  <button *ngIf="canShowMessagesIndicator()"  (click)="onShowMessages()"
+    class="game-messages-indicator btn btn-success shake-animation">
+    ???
+  </button>
+</div>

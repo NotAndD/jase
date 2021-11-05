@@ -1,0 +1,83 @@
+<app-condition-handler *ngIf="isHandlingChoice" [choice]="handlingChoice"
+  (callOnEnd)="onHandlerEnded($event)"></app-condition-handler>
+
+<div *ngIf="isAskingConfirmation" class="ask-confirm-container">
+  <p>{{ confirmationText }}</p>
+
+  <button type="button" (click)="onChoiceConfirm()" 
+    class="btn btn-outline-warning btn-small margin-right-10">I'm Sure</button>
+  <button type="button" (click)="onChoiceCancel()" 
+    class="btn btn-outline-warning btn-small">Wait..</button>
+</div>
+
+<div *ngIf="!isEditMode && !isOptionMode">
+  <div class="list-group">
+    <button *ngFor="let p of paragraphs" (click)="onParagraphChoice(p)" 
+      class="list-group-item list-group-item-action button-like-text"
+      [disabled]="shouldChoiceBeDisabled(p)">
+        <span *ngIf="p.visited.completelyInGame" class="dot gray"></span>
+        <span *ngIf="hasChoiceSettlingCondition(p)" class="badge badge-warning">
+          Condition
+        </span>
+        <span *ngIf="hasChoiceResult(p)" class="badge badge-primary">
+          Result
+        </span> 
+        {{p.title}}
+
+        <span *ngFor="let a of p.arguments"
+          class="badge badge-secondary badge-pill margin-right-5 float-right">
+          {{a}}
+        </span>
+
+        <span *ngIf="p.author" class="badge badge-primary badge-pill float-right">
+          by {{p.author}}
+        </span>
+    </button>
+
+    <button *ngIf="paragraphs.length == 0" 
+      class="list-group-item list-group-item-action button-like-text disabled">
+      (no options available)
+    </button>
+
+    <button (click)="onOptionMode()" 
+      class="list-group-item list-group-item-action button-like-text margin-top-1rem">
+      {{ paragraphs.length > 0 ? "Wait, it didn't go this way!" : "Wait, it didn't end this way!" }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="isOptionMode">
+  <div class="list-group">
+      <button class="list-group-item list-group-item-action button-like-text"
+        *ngIf="showEdit" (click)="onEditOpen()">
+        I'll decide what happens now!
+      </button>
+      <button class="list-group-item list-group-item-action button-like-text"
+        (click)="onShowMap()">
+        Where was I, exactly?
+      </button>
+      <button class="list-group-item list-group-item-action button-like-text"
+        *ngIf="isRewindAvailable" (click)="onMultipleGoBack()">
+        Rewind to previous story-split
+      </button>
+      <button class="list-group-item list-group-item-action button-like-text"
+        *ngIf="isRewindAvailable" (click)="onRefreshConditions()">
+        Rewind conditions, let's try again!
+      </button>
+      <button class="list-group-item list-group-item-action button-like-text"
+        (click)="onShowLog()">
+        Show me the Game Log!
+      </button>
+      
+      <button class="list-group-item list-group-item-action button-like-text margin-top-1rem"
+      (click)="isOptionMode = false">
+        Uh.. changed idea
+      </button>
+  </div>
+</div>
+
+<div *ngIf="isEditMode">
+  <app-game-action-creator [player]="player" [other]="other"
+    (callOnCancel)="onEditCancel($event)" (callOnSubmit)="onEditSubmit($event)">
+  </app-game-action-creator>
+</div>

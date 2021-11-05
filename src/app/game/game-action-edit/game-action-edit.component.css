@@ -1,0 +1,15 @@
+.first-left {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 9999;
+}
+
+.margin-rt-3 {
+    margin-right: 3px;
+    margin-top: 3px;
+}
+
+.text-center {
+    text-align: center;
+}

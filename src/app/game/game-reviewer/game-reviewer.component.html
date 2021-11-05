@@ -1,0 +1,129 @@
+<div *ngIf="showMap" class="game-reviewer-map-panel">
+  <div class="map-control font-size-20">
+    <button type="button" class="btn btn-link" (click)="showMap = !showMap">
+      Hide the Map
+    </button>
+    <span>
+      or
+      <button type="button" class="btn btn-link" (click)="globalMap = !globalMap">
+        Switch
+      </button>
+      to {{ globalMap ? 'Game' : 'Global' }} view
+    </span>
+  </div>
+
+  <div class="map-outer-box">
+    <div class="map-box">
+      <!-- <app-paragraph-map [paragraphs]="simplePars" [onlyVisited]="true" [currentParId]="currentParId"
+        [onlyVisible]="true" [globalMode]="globalMap">
+      </app-paragraph-map> -->
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showGameLog">
+  <div class="text-center">
+    <h3>{{ gameLogTitle }}</h3>
+  </div>
+  <div *ngIf="logsEntries.length > 0" class="container margin-top-10 font-size-20">
+    <hr />
+    <div *ngFor="let lm of logsEntries; let i = index"
+        id="{{'log-message-' + i}}">
+      <p>
+        {{ lm }}
+      </p>
+      <hr />
+    </div>
+  </div>
+
+  <button class="game-log-close btn btn-warning" (click)="showGameLog = false">
+    Close the Log
+  </button>
+</div>
+
+<div *ngIf="!showMap && !showGameLog" class="container font-size-20">
+  <div class="row">
+    <div class="text-center col-md-12">
+      <h1>The end?</h1>
+      <h3>In all your games..</h3>
+      <h4 class="text-muted ending-title">
+        you explored {{visitedPars}} / {{totalNumberOfPars}} (about {{visitedPars / totalNumberOfPars * 100 | number: '1.2-2'}}%) paths of the story..
+      </h4>
+      <h4 class="text-muted ending-title">
+        you managed to reach {{ trueEndings }} of the {{ totalNumberOfTrueEndings }} True Endings..
+      </h4>
+      <h4 class="text-muted ending-title">
+        you made {{ gameOvers }} Game Overs.. and Rewinded back {{ rewinds }} times..
+      </h4>
+      <h3 *ngIf="firstCommonLogEntry">.. also, your most common events were..</h3>
+      <h4 *ngIf="firstCommonLogEntry" class="text-muted ending-title">
+        {{ firstCommonLogEntry[0] + ' x' + firstCommonLogEntry[1] + ' times..' }}
+      </h4>
+      <h4 *ngIf="secondCommonLogEntry" class="text-muted ending-title">
+        {{ secondCommonLogEntry[0] + ' x' + secondCommonLogEntry[1] + ' times..' }}
+      </h4>
+    </div>
+
+    <div class="col-md-6 margin-top-10">
+      <div class="alert alert-secondary">
+        Curious about what to explore next? 
+        <button type="button" class="btn btn-link" (click)="showMap = !showMap">
+          Consult the Map
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-6 margin-top-10">
+      <div class="alert alert-secondary">
+        Want to check what happened?
+        <button type="button" class="btn btn-link" (click)="showGameLog = !showGameLog">
+          Show the Game Log
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 margin-top-10">
+      <div class="alert alert-secondary">
+        <p>
+          Notice, this game (and engine) is still under development. For this reason, it really needs LOTS of feedbacks.
+        </p>
+        <hr />
+        <p>
+          If you have the time, please consider to share your ideas ad suggestions with the author, every opinion can help!
+        </p>
+      </div>
+    </div>
+
+    <div *ngIf="thereAreNewPars" class="col-md-12 margin-top-10">
+      <div class="alert alert-secondary">
+        <p>
+          Want to share the paragraphs you just made? It's easy.. just press the button below to show the paragraphs you created in a JSON (text) format.. copy them up and then share everything with the author! Just hit me up and share :3
+        </p>
+        <hr />
+        <p>
+          New text will be checked up and then added in the next version of the game for everyone to enjoy!
+        </p>
+        <hr />
+        <p>
+          NOTICE, once this page is reloaded, everything you just created will be lost, unless you save it up RIGHT now.
+        </p>
+        <button class="btn btn-success" (click)="showNewPars = !showNewPars">Show / Hide the new paragraphs!</button>
+        <button class="btn btn-success margin-left-5" *ngIf="showNewPars" (click)="selectAllParagraphs()">Select all</button>
+      </div>
+    </div>
+
+    <div *ngIf="showNewPars" class="col-md-12 margin-top-10">
+      <textarea #paragraphs class="new-pars-container" readonly rows="16">{{newParsStringified}}</textarea>
+    </div>
+  </div>
+
+  <div class="row last-row">
+    <div class="col-md-12">
+      <a class="btn btn-warning" routerLink="/welcome" routerLinkActive="active">Exit the game</a>
+      <span class="margin-left-5"> or </span>
+      <button class="btn btn-warning margin-left-5" (click)="onExploreAgain()">Explore other paths</button>
+    </div>
+  </div>
+</div>

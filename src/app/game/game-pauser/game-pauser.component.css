@@ -1,0 +1,18 @@
+.text-center {
+    text-align: center;
+}
+
+.margins-10 {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.scrollable-container {
+    height: 100%;
+    overflow: auto;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}

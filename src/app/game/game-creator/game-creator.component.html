@@ -1,0 +1,58 @@
+<div class="game-creation-container">
+  <div *ngIf="gameCreationPhase == -1">
+    <app-game-loader [templateId]="templateId" [totalNumberOfPars]="totalNumberOfPars" [totalTrueEndings]="totalTrueEndings" (callOnSlotChoise)="onSlotChoise($event)">
+    </app-game-loader>
+  </div>
+
+  <div *ngIf="gameCreationPhase == 0" class="alert alert-secondary">
+    <app-options-form [submitButtonText]="'Next'" (callOnOptionSubmit)="onGameOptionsSubmit($event)"></app-options-form>
+  </div>
+  <div *ngIf="gameCreationPhase > 0" class="jumbotron">
+    <p class="lead">
+      Options saved. Now, set characters up to start the game.
+    </p>
+  </div>
+
+  <div *ngIf="gameCreationPhase == 1">
+    <h3>First character (The {{ gameTemplate.player.name }})</h3>
+    <h4><small class="text-muted">{{ gameTemplate.player.description }}</small></h4>
+    <app-character-creator [pollName]="gameTemplate.player.name" [character]="game.player.character" (callOnSubmit)="onYourCharacterSubmit($event)">
+    </app-character-creator>
+  </div>
+  <div *ngIf="gameCreationPhase > 1" class="jumbotron">
+      <p class="lead">
+        The first character is {{ game.player.character.name }}!
+      </p>
+      <hr>
+      <p>
+        A {{ game.player.character.fullDesc }}.
+      </p>
+  </div>
+
+  <div *ngIf="gameCreationPhase == 2">
+    <h3>Second character (The {{ gameTemplate.other.name }})</h3>
+    <h4><small class="text-muted">{{ gameTemplate.other.description }}</small></h4>
+    <app-character-creator [pollName]="gameTemplate.other.name" [character]="game.other" (callOnSubmit)="onOtherCharacterSubmit($event)">
+    </app-character-creator>
+  </div>
+  <div *ngIf="gameCreationPhase > 2" class="jumbotron">
+      <p class="lead">
+        The second character will be {{ game.other.name }}!
+      </p>
+      <hr>
+      <p>
+        A {{ game.other.fullDesc }}.
+      </p>
+  </div>
+
+  <div *ngIf="gameCreationPhase == 3" style="padding-bottom: 100px">
+    <h3>Everything is set-up!</h3>
+    <button class="btn btn-warning" (click)="onGameStartBtn()">Start the game</button>
+  </div>
+
+  <div *ngIf="gameCreationPhase > 0 && (!game.isStarted)" class="game-creation-back-container alert alert-danger">
+    Want to change something?
+    <button class="btn btn-warning" style="margin-left: 3px" 
+      (click)="onCreationPhaseBack()">Back</button>
+  </div>
+</div>

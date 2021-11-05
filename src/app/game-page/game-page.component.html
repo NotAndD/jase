@@ -1,0 +1,22 @@
+<div *ngIf="gamePhase == -1" class="loading-game">
+  <div class="spinner-border" role="status">
+                    
+  </div>
+</div>
+
+<div *ngIf="gamePhase == 0">
+  <div class="container">
+    <app-game-creator [engine]="gameEngine" (callOnStartGame)="onStartGame($event)">
+    </app-game-creator>
+  </div>
+  <a class="btn btn-warning exit-game" routerLink="/welcome" routerLinkActive="active">Exit game</a>
+</div>
+
+<div *ngIf="gamePhase == 1">
+  <app-game-executioner [engine]="gameEngine" (callOnEndGame)="onEndGame($event)">
+  </app-game-executioner>
+</div>
+
+<div *ngIf="gamePhase == 2">
+  <app-game-reviewer [engine]="gameEngine" (callOnExploreAgain)="onExploreAgain($event)"></app-game-reviewer>
+</div>

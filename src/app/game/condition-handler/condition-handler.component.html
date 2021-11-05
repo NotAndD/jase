@@ -1,0 +1,3 @@
+<app-fatality-tester *ngIf="isFatality()" 
+  [difficulty]="condition.difficulty" [sentence]="choice.title"
+  (callOnFatalityEnd)="onEnd($event)"></app-fatality-tester>

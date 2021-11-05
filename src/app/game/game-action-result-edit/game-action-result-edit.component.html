@@ -1,0 +1,108 @@
+<div class="container">
+  <form (ngSubmit)="onSubmit()" #actionForm="ngForm">
+    <div class="row" style="margin-top: 10px">
+
+      <div class="col-sm-4 col-xs-6">
+        <div class="form-group">
+            <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="isGameEnder"
+            [(ngModel)]="isGameEnder" name="isGameEnder">
+          <label class="custom-control-label" for="isGameEnder">
+            Rewindable Game Over?
+          </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-xs-6">
+        <div class="form-group">
+            <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="isTrueGameEnder"
+            [(ngModel)]="isTrueGameEnder" name="isTrueGameEnder">
+          <label class="custom-control-label" for="isTrueGameEnder">
+            End's the simulation (true-end)?
+          </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-xs-6">
+        <div class="form-group">
+            <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="disableRewind"
+            [(ngModel)]="disableRewind" name="disableRewind">
+          <label class="custom-control-label" for="disableRewind">
+            Disable Rewind Powers?
+          </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-xs-6">
+        <div class="form-group">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="shake" name="shake"
+              [(ngModel)]="shake">
+            <label class="custom-control-label" for="shake">Shake the Text?</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-xs-6">
+        <div class="form-group">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="hasSoundEffect" name="hasSoundEffect"
+              [(ngModel)]="hasSoundEffect">
+            <label class="custom-control-label" for="hasSoundEffect">Play a Sound Effect</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-xs-12" *ngIf="hasSoundEffect">
+        <div class="row alert alert-secondary">
+          <div class="col-sm-4 col-xs-6">
+            <div class="form-group">
+              <label for="playAudioSoundIds">Audio Effects (splitted by space)</label>
+              <input type="text" class="form-control" id="playAudioSoundIds" [(ngModel)]="playAudioSoundIds" name="playAudioSoundIds">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-xs-6">
+        <div class="form-group">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="isParAvailable"
+              name="isParAvailable" [(ngModel)]="isParAvailable">
+            <label class="custom-control-label" for="isParAvailable">
+              Makes a Paragraph Available
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-xs-12" *ngIf="isParAvailable">
+        <div class="row alert alert-secondary">
+          <div class="col-sm-4 col-xs-6">
+            <div class="form-group">
+              <label for="parAvailable">Paragraph Id</label>
+              <input type="text" class="form-control" id="parAvailable"
+                [(ngModel)]="parAvailable" name="parAvailable">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-12" style="margin-top: 10px">
+        <button type="button" class="btn btn-warning margin-rt-3" (click)="onCancel()">
+          Cancel
+        </button>
+        <button type="submit" [disabled]="!actionForm.form.valid" class="btn btn-warning margin-rt-3">
+          Submit
+        </button>
+      </div>
+
+    </div>
+  </form>
+</div>

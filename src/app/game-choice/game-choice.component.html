@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3>Which story do you want to play?</h3>
+            <h4 class="text-muted">
+                (please insert the Story ID to search or choose from the stories you already played)
+            </h4>
+        </div>
+
+        <div class="col-md-12">
+            <div class="list-group">
+                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': localSearch }" (click)="showLocalSearch()">
+                    Browse already played stories
+                </button>
+                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': storyIdInput }" (click)="showStoryIdInput()">
+                    I have a Story ID
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="localSearch" class="row margin-top-30">
+
+        <div class="col-md-12">
+            <h4>Local stories</h4>
+
+            <div class="list-group">
+                <button *ngFor="let templ of localTemplates" (click)="templateSelected = templ"
+                    class="list-group-item list-group-item-action" [ngClass]="{ 'active': templ === templateSelected }">
+                    {{ templ.name }}
+                </button>
+
+                <button *ngIf="localTemplates.length === 0" disabled class="list-group-item list-group-item-action">
+                    Sorry, looks like there are no local stories to browse!
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="localTemplates.length > 0" class="col-md-12">
+            <div class="button-container">
+                <button class="btn btn-outline-warning" (click)="onLocalTemplateChoice()" [disabled]="!templateSelected">
+                    This one
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="storyIdInput" class="row margin-top-30">
+        <div class="col-md-12 form-group">
+            <label for="storyId">Story ID</label>
+            <input type="text" class="form-control" id="storyId" [(ngModel)]="storyId" name="storyId">
+        </div>
+        <div class="col-md-12">
+            <div class="button-container">
+                <button class="btn btn-outline-warning" (click)="onStoryIdSubmit()" [disabled]="!storyId">
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

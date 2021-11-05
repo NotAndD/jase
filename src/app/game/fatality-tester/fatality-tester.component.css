@@ -1,0 +1,48 @@
+.click-preventing {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.fatality-container {
+    z-index: 1001;
+    display: block;
+}
+
+.no-background {
+    background-color: transparent;
+    border: none;
+}
+
+.smartphone-tap-area {
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: rgba(0, 0, 0, 0.6);
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.bg-transparent {
+    background-color: transparent;
+}
+
+.timing-bar-down {
+    border-radius: 0 0 5px 5px;
+    border: 1px solid;
+}
+
+.timing-bar-up {
+    border-radius: 5px 5px 0 0;
+    border: 1px solid;
+}

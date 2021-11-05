@@ -1,0 +1,41 @@
+<h2>Choose a game slot</h2>
+<p>First, choose a game slot to save the game in.. or load an existing slot instead of starting from scratch.</p>
+
+<div class="list-group">
+  <button *ngFor="let slot of slots" (click)="onSlotSelection(slot)"
+    class="list-group-item list-group-item-action" [ngClass]="{ 'active': slot === slotSelected }">
+      {{ slot.description }} 
+      
+      <span *ngIf="!slot.isEmpty && slot.exploration"
+          class="badge badge-secondary badge-pill margin-right-5 float-right">
+          {{ 'Explored: ' + slot.exploration + ' | ' + slot.trueEndings + ' / ' + totalNumberOfPars + ' | ' + totalTrueEndings }}
+      </span>
+      
+  </button>
+</div>
+
+<div class="buttons-container">
+  <div class="btn-group block-group">
+    <button class="btn btn-outline-warning" (click)="onSlotLoad()" [disabled]="!slotSelected">
+      {{ !slotSelected || slotSelected.isEmpty ? 'New' : 'Load' }}
+    </button>
+    <button class="btn btn-outline-warning" (click)="onSlotLoadFromStart()"
+      [disabled]="!slotSelected || slotSelected.isEmpty">Load from Beginning</button>
+    <button class="btn btn-outline-warning" (click)="onSlotDelete()" 
+      [disabled]="!slotSelected || slotSelected.isEmpty">Delete</button>
+  </div>
+
+  <div class="btn-group block-group" style="margin-top: 5px;">
+    <button class="btn btn-outline-warning" (click)="uploader.click()" 
+      [disabled]="!slotSelected || !slotSelected.isEmpty">Import Save</button>
+    <button class="btn btn-outline-warning" (click)="onSlotExport()"
+      [disabled]="!slotSelected || slotSelected.isEmpty">Export Save</button>
+  </div>
+  
+  <input hidden type="file" #uploader (change)="onSlotImport($event)" />
+
+  <div *ngIf="errorOnImport" class="alert alert-dismissible alert-warning inline-alert">
+    <button type="button" (click)="errorOnImport = false" class="close" data-dismiss="alert">&times;</button>
+    <p>There was an error while importing the game. Try with a different file.</p>
+  </div>
+</div>

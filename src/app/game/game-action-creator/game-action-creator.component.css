@@ -1,0 +1,5 @@
+.transparent {
+    background-color: transparent;
+    outline: none;
+    outline-width: 0;
+}

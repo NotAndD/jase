@@ -1,0 +1,48 @@
+.margin-right-5 {
+    margin-right: 5px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
+
+.button-like-text {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.button-like-text:hover {
+    outline: 5px auto -webkit-focus-ring-color;
+}
+
+.margin-top-1rem {
+    margin-top: 1rem;
+}
+
+.ask-confirm-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 10px;
+    overflow: hidden;
+    text-align: center;
+    background: black;
+    opacity: 0.8;
+    z-index: 42;
+    font-size: 20px;
+}
+
+.dot {
+    margin-right: 5px;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.gray {
+    background-color: #8f8f8f;
+}

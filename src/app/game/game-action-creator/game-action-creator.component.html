@@ -1,0 +1,37 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <button type="button" class="nav-link transparent" data-toggle="tab" (click)="currPhase = 0"
+      [ngClass]="{ 'active' : currPhase == 0, 'disabled' : creatorPhase < 0}">
+        Title & Conditions
+      </button>
+  </li>
+  <li class="nav-item">
+    <button type="button" class="nav-link transparent" data-toggle="tab" (click)="currPhase = 1"
+      [ngClass]="{ 'active' : currPhase == 1, 'disabled' : creatorPhase < 1}">
+      Content
+    </button>
+  </li>
+  <li class="nav-item">
+    <button type="button" class="nav-link transparent" data-toggle="tab" (click)="currPhase = 2"
+      [ngClass]="{ 'active' : currPhase == 2, 'disabled' : creatorPhase < 2}">
+        Results
+      </button>
+  </li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane fade" id="title-effects" [ngClass]="{ 'active show': currPhase == 0 }">
+    <app-game-action-edit *ngIf="currPhase == 0" [player]="player" [other]="other"
+      [newPar]="newPar" (callOnCancel)="onCancel($event)"
+      (callOnSubmit)="onApplyPhase($event)"></app-game-action-edit>
+  </div>
+  <div class="tab-pane fade" id="content" [ngClass]="{ 'active show': currPhase == 1 }">
+      <app-game-action-content-edit *ngIf="currPhase == 1"
+        [newPar]="newPar" (callOnCancel)="onCancel($event)"
+        (callOnSubmit)="onApplyPhase($event)"></app-game-action-content-edit>
+  </div>
+  <div class="tab-pane fade" id="title-effects" [ngClass]="{ 'active show': currPhase == 2 }">
+    <app-game-action-result-edit *ngIf="currPhase == 2" [player]="player" [other]="other"
+      [newPar]="newPar" (callOnCancel)="onCancel($event)"
+      (callOnSubmit)="onApplyPhase($event)"></app-game-action-result-edit>
+  </div>
+</div>

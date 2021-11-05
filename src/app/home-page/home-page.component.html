@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="jumbotron">
+    <h4>
+      Welcome to JASE, Just another Story Engine that will help you create a story with YOUR characters.
+    </h4>
+    <hr class="my-4">
+    <p style="font-size: 20px;">
+      So, what do you want to do?
+    </p>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 5px;">
+    <div class="btn-group block-group">
+      <button class="btn btn-outline-warning" routerLink="/game-choice">
+        Play
+      </button>
+      <button class="btn btn-outline-warning" routerLink="/game-editor-choice">
+        Edit / Create
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showTips" class="alert alert-dismissible alert-warning" style="margin-top: 20px; color: black;">
+    <button type="button" (click)="showTips = false" class="close" data-dismiss="alert">&times;</button>
+    <button type="button" class="close" style="right: 40px" (click)="onNextTips()">?</button>
+    <h4>Did you know that..</h4>
+    <p>{{currTipText}}</p>
+  </div>
+</div>

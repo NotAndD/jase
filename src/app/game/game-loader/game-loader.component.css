@@ -1,0 +1,14 @@
+.buttons-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.block-group {
+    display: block;
+}
+
+.inline-alert {
+    display: inline-block;
+    margin-top: 20px;
+    color: black;
+}

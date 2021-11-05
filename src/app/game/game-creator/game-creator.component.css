@@ -1,0 +1,11 @@
+.game-creation-container {
+    padding-bottom: 20px;
+}
+
+.game-creation-back-container {
+    position: fixed;
+    bottom: 40px;
+    text-align: right;
+    right: 10px;
+    padding: 5px;
+}

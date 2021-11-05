@@ -1,0 +1,23 @@
+.message-owner {
+    margin: 5px;
+    color: darkgray;
+}
+
+.conversation-messages {
+    padding: 5px;
+    margin: 10px;
+}
+
+.msg-text-container {
+    white-space: pre-wrap;
+    color: darkgray;
+    margin-bottom: 2px;
+}
+
+.message-button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    padding: 0;
+}
