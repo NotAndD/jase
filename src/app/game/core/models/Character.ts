@@ -16,9 +16,28 @@ export class CharacterPoll {
         if (obj) {
             this.name = obj.name;
             this.description = obj.description;
-            this.characters = obj.characters;
+            this.characters = buildCharacters(obj.characters);
+        } else {
+            this.characters = [];
         }
     }
+
+    isValid(): boolean {
+        return this.name !== undefined && this.description !== undefined;
+    }
+}
+
+function buildCharacters(jsonResults: any): Array<Character> {
+    if (!jsonResults || !jsonResults.length) {
+        return [];
+    }
+    const results: Array<Character> = [];
+
+    for (let i = 0; i < jsonResults.length; i++) {
+        results.push(new Character(jsonResults[i]));
+    }
+
+    return results;
 }
 
 export class Character {

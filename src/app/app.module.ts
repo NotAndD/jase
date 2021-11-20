@@ -24,6 +24,16 @@ import { GamePauserComponent } from './game/game-pauser/game-pauser.component';
 import { GameActionResultEditComponent } from './game/game-action-result-edit/game-action-result-edit.component';
 import { GameLoaderComponent } from './game/game-loader/game-loader.component';
 import { GameEditorChoiceComponent } from './game-editor-choice/game-editor-choice.component';
+import { CreditsPageComponent } from './credits-page/credits-page.component';
+import { GameEditorComponent } from './game-editor/game-editor.component';
+import { GameTemplateEditorComponent } from './game/game-template-editor/game-template-editor.component';
+import { GeneralEditorComponent } from './game/game-template-editor/general-editor/general-editor.component';
+import { CharacterPoolCreatorComponent } from './game/character-pool-creator/character-pool-creator.component';
+import { LogEditorComponent } from './game/game-template-editor/log-editor/log-editor.component';
+import { MessagesEditorComponent } from './game/game-template-editor/messages-editor/messages-editor.component';
+import { PersonalizationEditorComponent } from './game/game-template-editor/personalization-editor/personalization-editor.component';
+import { ManageEditorComponent } from './game/game-template-editor/manage-editor/manage-editor.component';
+import { GameTemplateLoaderComponent } from './game/game-template-loader/game-template-loader.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +57,17 @@ import { GameEditorChoiceComponent } from './game-editor-choice/game-editor-choi
     GamePauserComponent,
     GameActionResultEditComponent,
     GameLoaderComponent,
-    GameEditorChoiceComponent
+    GameEditorChoiceComponent,
+    CreditsPageComponent,
+    GameEditorComponent,
+    GameTemplateEditorComponent,
+    GeneralEditorComponent,
+    CharacterPoolCreatorComponent,
+    LogEditorComponent,
+    MessagesEditorComponent,
+    PersonalizationEditorComponent,
+    ManageEditorComponent,
+    GameTemplateLoaderComponent
   ],
   imports: [
     BrowserModule,

@@ -9,50 +9,40 @@
 
         <div class="col-md-12">
             <div class="list-group">
-                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': localSearch }" (click)="showLocalSearch()">
+                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': localSearch }"
+                    (click)="showLocalSearch()">
                     Browse already played stories
                 </button>
-                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': storyIdInput }" (click)="showStoryIdInput()">
+                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': storyIdInput }"
+                    (click)="showStoryIdInput()">
                     I have a Story ID
                 </button>
             </div>
         </div>
-    </div>
 
-    <div *ngIf="localSearch" class="row margin-top-30">
+        <div *ngIf="localSearch" class="col-md-12 margin-top-30">
+            <app-game-template-loader [canShowWip]="false" (callOnTemplateSelect)="onLocalTemplateChoice($event)">
+            </app-game-template-loader>
+        </div>
 
-        <div class="col-md-12">
-            <h4>Local stories</h4>
-
-            <div class="list-group">
-                <button *ngFor="let templ of localTemplates" (click)="templateSelected = templ"
-                    class="list-group-item list-group-item-action" [ngClass]="{ 'active': templ === templateSelected }">
-                    {{ templ.name }}
-                </button>
-
-                <button *ngIf="localTemplates.length === 0" disabled class="list-group-item list-group-item-action">
-                    Sorry, looks like there are no local stories to browse!
-                </button>
+        <div *ngIf="storyIdInput" class="col-md-12 margin-top-30">
+            <div class="form-group">
+                <label for="storyId">Story ID</label>
+                <input type="text" class="form-control" id="storyId" [(ngModel)]="storyId" name="storyId"
+                    [ngClass]="{ 'is-invalid': storyId && storyId === lastStoryIdUsed }">
+                <div *ngIf="storyId && storyId === lastStoryIdUsed" class="invalid-feedback">Sorry, there is no Story
+                    matching with this ID. Try another?</div>
             </div>
-        </div>
-
-        <div *ngIf="localTemplates.length > 0" class="col-md-12">
-            <div class="button-container">
-                <button class="btn btn-outline-warning" (click)="onLocalTemplateChoice()" [disabled]="!templateSelected">
-                    This one
-                </button>
+            <div class="margin-top-5">
+                Take into consideration a few things:
+                <ul>
+                    <li [ngClass]="{ 'invalid-color': storyId && storyId.length < 8 }">It must be at least 8 characters
+                    </li>
+                    <li>It may contains only letters, numbers and the <strong>-</strong> character.</li>
+                </ul>
             </div>
-        </div>
-    </div>
-
-    <div *ngIf="storyIdInput" class="row margin-top-30">
-        <div class="col-md-12 form-group">
-            <label for="storyId">Story ID</label>
-            <input type="text" class="form-control" id="storyId" [(ngModel)]="storyId" name="storyId">
-        </div>
-        <div class="col-md-12">
             <div class="button-container">
-                <button class="btn btn-outline-warning" (click)="onStoryIdSubmit()" [disabled]="!storyId">
+                <button class="btn btn-outline-warning" (click)="onStoryIdSubmit()" [disabled]="!isValidForSearch()">
                     Search
                 </button>
             </div>

@@ -19,34 +19,48 @@ export class GameTemplateRepository {
     static init = false;
 
     static getRandomTemplateId(): string {
-        return POSSIBLE_TEMPLATE_ID_PIECES_1[getRandomInt(0, POSSIBLE_TEMPLATE_ID_PIECES_1.length)]
-            + '-' + POSSIBLE_TEMPLATE_ID_PIECES_2[getRandomInt(0, POSSIBLE_TEMPLATE_ID_PIECES_2.length)]
-            + '-' + POSSIBLE_TEMPLATE_ID_PIECES_3[getRandomInt(0, POSSIBLE_TEMPLATE_ID_PIECES_3.length)];
+        return POSSIBLE_TEMPLATE_ID_PIECES_1[getRandomInt(0, POSSIBLE_TEMPLATE_ID_PIECES_1.length - 1)]
+            + '-' + POSSIBLE_TEMPLATE_ID_PIECES_2[getRandomInt(0, POSSIBLE_TEMPLATE_ID_PIECES_2.length - 1)]
+            + '-' + POSSIBLE_TEMPLATE_ID_PIECES_3[getRandomInt(0, POSSIBLE_TEMPLATE_ID_PIECES_3.length - 1)];
     }
 
-    static downloadTemplate(templateId: string) {
-        // TODO download template, then put it in the available templates
-    }
-
-    static list(): GameTemplate[] {
+    static initFromLocal() {
         if (!GameTemplateRepository.init) {
             GameTemplateRepository.templates = StorageHandler.storageService.getLocalTemplates();
             GameTemplateRepository.templates.push(EXAMPLE_GAME);
             GameTemplateRepository.init = true;
         }
+    }
+
+    static list(): GameTemplate[] {
+        GameTemplateRepository.initFromLocal();
 
         return GameTemplateRepository.templates;
     }
 
     static add(template: GameTemplate) {
         GameTemplateRepository.templates.push(template);
+        StorageHandler.storageService.saveTemplate(template);
     }
 
-    static get(id: string) {
+    static update(template: GameTemplate) {
+        const index = GameTemplateRepository.templates.indexOf(template);
+        if (index > -1) {
+            GameTemplateRepository.templates[index] = template;
+            StorageHandler.storageService.saveTemplate(template);
+        }
+    }
+
+    static isLocallyAvailable(id: string, canBeWip: boolean): boolean {
+        GameTemplateRepository.initFromLocal();
+        return GameTemplateRepository.templates.filter(t => (canBeWip || !t.wip) && t.id === id).length === 1;
+    }
+
+    static get(id: string): GameTemplate {
+        GameTemplateRepository.initFromLocal();
+        
         const result = GameTemplateRepository.templates.filter(t => t.id === id);
 
         return result[0];
     }
 }
-
-/* add templates here to have them available in repos */

@@ -42,6 +42,15 @@ export class StorageService {
         return new GameTemplate(JSON.parse(storageTemplate));
     }
 
+    saveTemplate(template: GameTemplate) {
+        const localTemplateNames = this.getLocalTemplateNames();
+        if (localTemplateNames.indexOf(template.id) === -1) {
+            localTemplateNames.push(template.id);
+            localStorage.setItem(STORAGE_GAME_TEMPLATES_LIST, JSON.stringify(localTemplateNames));
+        }
+        localStorage.setItem(STORAGE_GAME_TEMPLATE + template.id, JSON.stringify(template));
+    }
+
     getLocalTemplates(): GameTemplate[] {
         const localTemplateNames = this.getLocalTemplateNames();
         const result: GameTemplate[] = [];

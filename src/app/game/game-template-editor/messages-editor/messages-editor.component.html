@@ -1,0 +1,25 @@
+<div>
+    <div class="text-center">
+        <h3>Pause Messages</h3>
+    </div>
+    
+    <p>
+        Pause messages are shown when the player pause the game. Like Log Entries, they support using text-templating to
+        write about the characters currently in the game, just to make the flavour text a bit more fun.
+    </p>
+    
+    <div *ngFor="let message of template.pauseMessages; let idx = index" class="pause-message">
+        <span>{{ message }}</span>
+        <button class="btn btn-outline-warning float-right" (click)="onMessageDelete(idx)">X</button>
+    </div>
+    <button *ngIf="template.pauseMessages.length === 0" disabled class="list-group-item list-group-item-action">
+        (there are currently no pause messages, want to add one?)
+    </button>
+    
+    <div class="margin-top-20p">
+        <input type="text" class="form-control" id="currentMessage" [(ngModel)]="currentMessage" name="currentMessage">
+        <div class="buttons-container">
+            <button class="btn btn-outline-warning" [disabled]="!currentMessage" (click)="onMessageAdd()">Add</button>
+        </div>
+    </div>
+</div>

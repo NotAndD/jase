@@ -1,0 +1,45 @@
+<div *ngIf="editPhase === -1" class="loading-game">
+    <div *ngIf="isLoading">
+        <div class="spinner-border" role="status">
+        </div>
+    
+        <p>
+          Checking Story existence..
+        </p>
+    </div>
+
+    <div *ngIf="isFailure">
+        <h2>
+            There is no such story called {{ templateId }} which can be edited
+        </h2>
+        <h4 class="text-muted">
+            (maybe you used the wrong url, or you have no rights to edit this story?)
+        </h4>
+        <div style="text-align: center; margin-top: 5px;">
+            <button class="btn btn-outline-warning" routerLink="/game-editor-choice">
+              To the Editor Choices
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="editPhase === 0">
+    <app-game-template-editor [template]="template" (callOnEditPlay)="onEditPlay($event)"
+        (callOnPersist)="onPersist($event)" (callOnDelete)="onDelete($event)">
+    </app-game-template-editor>
+</div>
+
+<div *ngIf="editPhase === 1">
+    <div *ngIf="gamePhase == 0">
+        <div class="container">
+          <app-game-creator [engine]="gameEngine" (callOnStartGame)="onStartGame($event)">
+          </app-game-creator>
+        </div>
+        <button class="btn btn-warning exit-game" (click)="editPhase = 0">Exit game</button>
+    </div>
+      
+    <div *ngIf="gamePhase == 1">
+        <app-game-executioner [engine]="gameEngine" (callOnEndGame)="onEndGame($event)">
+        </app-game-executioner>
+    </div>
+</div>

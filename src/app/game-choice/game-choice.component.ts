@@ -10,11 +10,12 @@ import { GameTemplateRepository } from '../game/core/repositories/GameTemplateRe
 })
 export class GameChoiceComponent {
 
-  localTemplates: GameTemplate[] = [];
-  templateSelected?: GameTemplate;
   localSearch = false;
   storyIdInput = false;
   storyId?: string;
+
+  isStoryIdAvailable = false;
+  lastStoryIdUsed?: string;
 
   constructor(private router: Router) { }
 
@@ -22,7 +23,7 @@ export class GameChoiceComponent {
     this.localSearch = true;
     this.storyIdInput = false;
 
-    this.localTemplates = GameTemplateRepository.list();
+    this.storyId = undefined;
   }
 
   showStoryIdInput(): void {
@@ -30,13 +31,8 @@ export class GameChoiceComponent {
     this.storyIdInput = true;
   }
 
-  onLocalTemplateChoice(): void {
-    if (!this.templateSelected) {
-      // impossible
-      return;
-    }
-
-    this.router.navigateByUrl('/game/' + this.templateSelected.id);
+  onLocalTemplateChoice($event: any): void {
+    this.router.navigateByUrl('/game/' + $event);
   }
 
   onStoryIdSubmit(): void {
@@ -45,8 +41,37 @@ export class GameChoiceComponent {
       return;
     }
 
-    GameTemplateRepository.downloadTemplate(this.storyId);
-    this.router.navigateByUrl('/game/' + this.storyId);
+    if (GameTemplateRepository.isLocallyAvailable(this.storyId, false)) {
+      this.isStoryIdAvailable = true;
+    } else {
+      // TODO check if the game template can be downloaded or not 
+      // - if it can, the story is available
+      // - if it cannot, state that the id does not work and propose to search again
+    }
+
+    if (this.isStoryIdAvailable) {
+      this.router.navigateByUrl('/game/' + this.storyId);
+    } else {
+      this.lastStoryIdUsed = this.storyId;
+    }
+  }
+
+  isValidForSearch(): boolean {
+    if (!this.storyId || this.storyId === this.lastStoryIdUsed) {
+      return false;
+    }
+
+    if (this.storyId.length < 8) {
+      return false;
+    }
+
+    const storyIdRegEx = new RegExp(/[^a-zA-Z0-9\-]+/, 'g');
+    const matches = this.storyId.match(storyIdRegEx);
+    if (matches && matches.length> 0) {
+      return false;
+    }
+
+    return true;
   }
 
 }

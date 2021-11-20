@@ -1,0 +1,98 @@
+<div *ngIf="editorPage === 0" class="container">
+    <div class="text-center">
+        <h2>
+            Edit {{ template.id }}
+        </h2>
+        <h4 class="text-muted">
+            (Setup all the required elements, then start writing your story)
+        </h4>
+    </div>
+    <div>
+        <ul>
+            <li>
+                <button type="button" class="btn btn-link" [ngClass]="{'not-ready': !storyTitleAndMore}" (click)="editorPage = 1">
+                    Must: Story Title and more
+                </button>
+                <p>Set the story title, its descriptions and setup a bunch of mandatory options.</p>
+            </li>
+            <li>
+                <button type="button" class="btn btn-link" [ngClass]="{'not-ready': !playerCharacterPool}" (click)="editorPage = 2">
+                    Must: Player Character Pool
+                </button>
+                <p>Setup the Player character pool to provide some player pick-options and descriptions.</p>
+            </li>
+            <li>
+                <button type="button" class="btn btn-link" [ngClass]="{'not-ready': !otherCharacterPool}" (click)="editorPage = 3">
+                    Must: Other Character Pool
+                </button>
+                <p>Setup the Other character pool to provide some other pick-options and descriptions.</p>
+            </li>
+            <li>
+                <button type="button" class="btn btn-link" (click)="editorPage = 4">
+                    Opt: Game Log
+                </button>
+                <p>Add Game Log messages which can be later added in the Log by the Story.</p>
+            </li>
+            <li>
+                <button type="button" class="btn btn-link" (click)="editorPage = 5">
+                    Opt: Pause Messages
+                </button>
+                <p>Add custom messages shown when the player pauses the game.</p>
+            </li>
+            <li>
+                <button type="button" class="btn btn-link" (click)="editorPage = 6">
+                    Opt: Personalizations
+                </button>
+                <p>Personalize the Game musics and more.</p>
+            </li>
+            <li>
+                <button type="button" class="btn btn-link" [ngClass]="{'not-ready': !isReadyToAddStoryContent}"
+                    [disabled]="!isReadyToAddStoryContent" (click)="onAddStoryContent()">
+                    Story content
+                </button>
+                <p>Start adding some content by playing your Story in edit-mode.</p>
+            </li>
+            <li>
+                <button type="button" class="btn btn-link" (click)="editorPage = 7">
+                    Manage the Story
+                </button>
+                <p>Change permissions, publish or unpublish your Story and more.</p>
+            </li>
+        </ul>
+    </div>
+    <div class="text-center">
+        <div class="btn-group block-group">
+            <button type="button" class="btn btn-outline-warning" (click)="onSave()">Save</button>
+            <button type="button" class="btn btn-outline-warning" (click)="onExit()">Exit</button>
+        </div>
+    </div>
+
+    <div *ngIf="showRememberToSave" class="alert alert-secondary remember-alert">
+        <p>
+            Made any changes?
+        </p>
+        <p>
+            In case you changed something and want to persist your work, remember to save.
+        </p>
+        <hr />
+        <p>
+            Want to cancel your changes instead? Then just "Exit" again.
+        </p>
+    </div>
+</div>
+
+<div *ngIf="editorPage > 0" class="container">
+    <app-general-editor *ngIf="editorPage === 1" [template]="template"></app-general-editor>
+
+    <app-character-pool-creator *ngIf="editorPage === 2" [pool]="template.player"></app-character-pool-creator>
+    <app-character-pool-creator *ngIf="editorPage === 3" [pool]="template.other"></app-character-pool-creator>
+
+    <app-log-editor *ngIf="editorPage === 4" [template]="template"></app-log-editor>
+    <app-messages-editor *ngIf="editorPage === 5" [template]="template"></app-messages-editor>
+    <app-personalization-editor *ngIf="editorPage === 6" [template]="template"></app-personalization-editor>
+
+    <app-manage-editor *ngIf="editorPage === 7" [template]="template" [isReadyToBePublished]="isReadyToBePublished"
+        (callOnPersist)="onPersist($event)" (callOnDelete)="onDelete($event)"></app-manage-editor>
+
+    <button type="button" class="btn btn-outline-warning back-on-index" (click)="onBack()">Back to the Edit-Index</button>
+</div>

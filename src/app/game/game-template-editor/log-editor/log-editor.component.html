@@ -1,0 +1,105 @@
+<div>
+    <div class="text-center">
+        <h3>Game Log Entries</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="logTitle">Game Log Title</label>
+            <input type="text" class="form-control" id="logTitle" required [(ngModel)]="template.logTitle"
+                name="logTitle">
+        </div>
+
+        <div class="col-md-6">
+            <div class="alert alert-secondary">
+                <p>
+                    The Game Log title.
+                </p>
+                <p>
+                    When the player will open the Game Log, this will be used as the title of the component.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <h4>Log entries</h4>
+
+            <p>
+                Log Entries are messages which can be added to the Game Log (a sort of list of what happened in a game) as the player explores the story.
+            </p>
+            <p>
+                They may be used to describe or add a small flavour text about a Game Over or something happening to the player. The entries support templating, to use the current characters info available in the game.
+            </p>
+            <p>
+                Notice that Log Entries have nothing to do with Tags messages.
+            </p>
+
+
+            <div class="list-group">
+                <button *ngFor="let item of template.logEntries | keyvalue" (click)="keySelected = item.key"
+                    class="list-group-item list-group-item-action" [ngClass]="{ 'active': item.key === keySelected }">
+                    {{ item.key }}
+                </button>
+
+                <button *ngIf="(template.logEntries | keyvalue).length === 0" disabled class="list-group-item list-group-item-action">
+                    (there are currently no log entries, want to add one?)
+                </button>
+            </div>
+
+            <div class="buttons-container">
+                <div class="btn-group block-group">
+                    <button class="btn btn-outline-warning" (click)="onEntryAdd()">Add</button>
+                    <button class="btn btn-outline-warning" (click)="onEntryEdit()"
+                        [disabled]="!keySelected">Edit</button>
+                    <button class="btn btn-outline-warning" (click)="onEntryDelete()"
+                        [disabled]="!keySelected">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="showEntryEditor" class="col-md-12 entry-editor">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="currentEntryKey">Entry Key</label>
+                    <input type="text" class="form-control" id="currentEntryKey" [(ngModel)]="currentEntryKey"
+                        name="currentEntryKey">
+                </div>
+
+                <div class="col-md-6 alert alert-secondary">
+                    <p>
+                        The Key for this Log Entry.
+                    </p>
+                    <p>
+                        It is just a Unique Identifier to later bound story paths into adding this particular entry to the player's Game Log.
+                    </p>
+                    <p>
+                         Keep it short, something like: "bad_game_over" or "important_thing_happened".
+                    </p>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="currentEntryContent">Entry Content</label>
+                    <textarea type="text" rows="4" class="md-textarea md-textarea-auto form-control"
+                        id="currentEntryContent" [(ngModel)]="currentEntryContent"
+                        name="currentEntryContent"></textarea>
+                </div>
+
+                <div class="col-md-6 alert alert-secondary">
+                    <p>
+                        Specify the Log entry content.
+                    </p>
+                    <p>
+                        You can specify multiple lines. Each line is used as a possible option of this entry, which means that when the entry needs to be added to the Game Log, a random line will be selected.
+                    </p>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="btn-group block-group">
+                        <button class="btn btn-outline-warning" (click)="onEntryDone()">Done</button>
+                        <button class="btn btn-outline-warning" (click)="showEntryEditor = false">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

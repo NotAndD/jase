@@ -1,6 +1,24 @@
 <div *ngIf="gamePhase == -1" class="loading-game">
-  <div class="spinner-border" role="status">
-                    
+  <div *ngIf="!isNoGameTemplateAvailable">
+    <div class="spinner-border" role="status">
+    </div>
+
+    <p>
+      Checking Story existence..
+    </p>
+  </div>
+  <div *ngIf="isNoGameTemplateAvailable">
+    <h2>
+      There is no such story called {{ templateId }} which can be read
+    </h2>
+    <h4 class="text-muted">
+      (maybe you used the wrong url, want to search for a different story?)
+    </h4>
+    <div style="text-align: center; margin-top: 5px;">
+      <button class="btn btn-outline-warning" routerLink="/game-choice">
+        Search for a Story
+      </button>
+    </div>
   </div>
 </div>
 

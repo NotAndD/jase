@@ -8,8 +8,10 @@ import { CharacterRepository } from '../core/repositories/CharacterRepository';
   styleUrls: ['./character-creator.component.css']
 })
 export class CharacterCreatorComponent implements OnInit {
+
   @Input() character!: Character;
   @Input() pollName!: string;
+  @Input() submitButtonText!: string;
   @Output() callOnSubmit: EventEmitter<any> = new EventEmitter();
 
   genders = STRING_CHARACTER_GENDER;

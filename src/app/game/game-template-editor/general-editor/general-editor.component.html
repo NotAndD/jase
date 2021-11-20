@@ -1,0 +1,40 @@
+<div>
+  <div class="text-center">
+    <h3>General info</h3>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 form-group">
+      <label for="name">Story Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="template.name" name="name">
+    </div>
+
+    <div class="col-md-6">
+      <div class="alert alert-secondary">
+        <p>
+          The name of the story, think at it as the Title of your story.
+        </p>
+        <p>
+          The ID may be used to reach the story by its URL but this is the title of your story.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-6 form-group">
+      <label for="description">Description</label>
+      <textarea type="text" rows="4" class="md-textarea md-textarea-auto form-control" id="description" required
+        [(ngModel)]="template.description" name="description"></textarea>
+    </div>
+
+    <div class="col-md-6">
+      <div class="alert alert-secondary">
+        <p>
+          The description of the story, it should briefly explain the story's gamestyle in a couple of text rows.
+        </p>
+        <p>
+          It has no particular use, unless you open the story from JASE search interface.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

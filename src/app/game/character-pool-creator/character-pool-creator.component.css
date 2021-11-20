@@ -1,0 +1,15 @@
+.text-center {
+    text-align: center;
+}
+
+.buttons-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-to-pool-edit {
+    position: fixed;
+    right: 190px;
+    bottom: 10px;
+    z-index: 9999;
+}

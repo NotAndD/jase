@@ -16,7 +16,7 @@
   <div *ngIf="gameCreationPhase == 1">
     <h3>First character (The {{ gameTemplate.player.name }})</h3>
     <h4><small class="text-muted">{{ gameTemplate.player.description }}</small></h4>
-    <app-character-creator [pollName]="gameTemplate.player.name" [character]="game.player.character" (callOnSubmit)="onYourCharacterSubmit($event)">
+    <app-character-creator [pollName]="gameTemplate.player.name" [character]="game.player.character" submitButtonText="Next" (callOnSubmit)="onYourCharacterSubmit($event)">
     </app-character-creator>
   </div>
   <div *ngIf="gameCreationPhase > 1" class="jumbotron">
@@ -32,7 +32,7 @@
   <div *ngIf="gameCreationPhase == 2">
     <h3>Second character (The {{ gameTemplate.other.name }})</h3>
     <h4><small class="text-muted">{{ gameTemplate.other.description }}</small></h4>
-    <app-character-creator [pollName]="gameTemplate.other.name" [character]="game.other" (callOnSubmit)="onOtherCharacterSubmit($event)">
+    <app-character-creator [pollName]="gameTemplate.other.name" [character]="game.other" submitButtonText="Next" (callOnSubmit)="onOtherCharacterSubmit($event)">
     </app-character-creator>
   </div>
   <div *ngIf="gameCreationPhase > 2" class="jumbotron">

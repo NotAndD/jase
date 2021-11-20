@@ -22,6 +22,8 @@ export class GameTemplate {
     logEntries!: Record<string, Array<string>>;
     logTitle!: string;
 
+    wip!: boolean;
+
     onConsoleOpened?: () => number;
 
     constructor(obj?: any) {
@@ -44,7 +46,28 @@ export class GameTemplate {
             this.logEntries = obj.logEntries;
             this.logTitle = obj.logTitle;
 
+            this.wip = obj.wip;
+
             this.onConsoleOpened = obj.onConsoleOpened;
+        }
+        this.ensureValidity();
+    }
+
+    private ensureValidity() {
+        if (!this.results) {
+            this.results = [];
+        }
+        if (!this.conditions) {
+            this.conditions = [];
+        }
+        if (!this.paragraphs) {
+            this.paragraphs = [ FIRST_PARAGRAPH ];
+        }
+        if (!this.logEntries) {
+            this.logEntries = {};
+        }
+        if (!this.pauseMessages) {
+            this.pauseMessages = [];
         }
     }
 }
@@ -84,6 +107,15 @@ function buildParagraphs(jsonParagraphs: any): Array<Paragraph> {
     for (let i = 0; i < jsonParagraphs.length; i++) {
         results.push(toParagrapth(jsonParagraphs[i]));
     }
+    if (results.length === 0) {
+        results.push(FIRST_PARAGRAPH);
+    }
 
     return results;
 }
+
+const FIRST_PARAGRAPH: Paragraph = toParagrapth({
+    id: 0,
+    title: 'Where the story begins..',
+    text: 'Start by choosing which side of the story you want to explore..',
+});

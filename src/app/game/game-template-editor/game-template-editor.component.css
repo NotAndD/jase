@@ -1,0 +1,18 @@
+.text-center {
+    text-align: center;
+}
+
+.not-ready {
+    color: red;
+}
+
+.back-on-index {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 9999;
+}
+
+.remember-alert {
+    margin-top: 10px;
+}

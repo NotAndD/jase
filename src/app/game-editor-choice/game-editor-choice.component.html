@@ -9,52 +9,58 @@
 
         <div class="col-md-12">
             <div class="list-group">
-                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': isEdit }" (click)="showEdit()">
+                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': isEdit }"
+                    (click)="showEdit()">
                     Edit an existing Story
                 </button>
-                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': isCreate }" (click)="showCreate()">
+                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': isCreate }"
+                    (click)="showCreate()">
                     Create a new Story
                 </button>
             </div>
         </div>
 
-        <div *ngIf="isEdit" class="row margin-top-30">
-
+        <div *ngIf="isEdit" class="col-md-12 margin-top-30">
+            <div class="list-group">
+                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': localSearch }"
+                    (click)="showLocalSearch()">
+                    Browse already played stories
+                </button>
+                <button class="list-group-item list-group-item-action" [ngClass]="{ 'active': storyIdInput }"
+                    (click)="showStoryIdInput()">
+                    I have a Story ID
+                </button>
+            </div>
         </div>
 
-        <div *ngIf="isCreate" class="row margin-top-30">
-            <div class="col-md-12 form-group">
+        <div *ngIf="isEdit && localSearch" class="col-md-12 margin-top-30">
+            <app-game-template-loader [canShowWip]="true" (callOnTemplateSelect)="onLocalTemplateChoice($event)">
+            </app-game-template-loader>
+        </div>
+
+        <div *ngIf="isCreate || isEdit && storyIdInput" class="col-md-12 margin-top-30">
+            <div class="form-group">
                 <label for="storyId">Choose a Story ID</label>
-                <input type="text" class="form-control" id="storyId" [(ngModel)]="storyId" name="storyId">
-                <div class="margin-top-5">
+                <input type="text" class="form-control" id="storyId" [(ngModel)]="storyId" name="storyId"
+                    [ngClass]="{ 'is-invalid': !storyId || storyId === lastStoryIdUsed }">
+                <div *ngIf="isCreate" class="margin-top-5">
                     Take into consideration a few things:
                     <ul>
                         <li>The Story ID must be unique across all stories (even the one you didn't create)</li>
-                        <li>It may contains only letters, numbers and the <strong>-</strong> character.</li>
-                        <li>Once the Story is published, people will be able to open it by knowing the Story ID, either by searching it or directly with the URL.</li>
+                        <li [ngClass]="{ 'invalid-color': storyId && storyId.length < 8 }">It should be at least 8
+                            characters</li>
+                        <li>It may contains only letters, numbers and the <strong>-</strong> character to separate
+                            different words.</li>
+                        <li>Once the Story is published, people will be able to open it by knowing the Story ID, either
+                            by searching it or directly with a URL.</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="col-md-12 form-group">
-                <label for="authorId">Also, this will be your Author ID associated with this Story</label>
-                <input type="text" class="form-control" id="authorId" [(ngModel)]="authorId" name="authorId" readonly>
-                <div class="margin-top-5">
-                    Please notice that:
-                    <ul>
-                        <li>Once the story is created, <strong>whoever</strong> has the Author ID will be able to <strong>UPDATE</strong> or <strong>DELETE</strong> it.</li>
-                        <li>If you lose it, you will <strong>NOT</strong> be able to edit your story anymore and there's <strong>NO WAY</strong> to obtain it again.</li>
-                        <li>If you still haven't understood, <strong>COPY</strong> this Author ID and store it somewhere safe.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="button-container">
-                    <button class="btn btn-outline-warning" (click)="onStoryIdSubmit()" [disabled]="!storyId || !authorId">
-                        Create a new Story
-                    </button>
-                </div>
+            <div class="button-container">
+                <button class="btn btn-outline-warning" (click)="onStoryIdSubmit()" [disabled]="!isValidForSubmit()">
+                    {{ isCreate ? 'Create new Story' : 'Edit existing Story' }}
+                </button>
             </div>
         </div>
     </div>

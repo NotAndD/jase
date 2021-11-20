@@ -1,0 +1,71 @@
+<div *ngIf="!showCharacterCreator">
+    <h3>Edit the Character Pool</h3>
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="pool.name" name="name">
+        </div>
+
+        <div class="col-md-6">
+            <div class="alert alert-secondary">
+                <p>
+                    The name of this pool of characters.
+                </p>
+                <p>
+                    Think at it as the way to tell the player in just a word which
+                    kind of character should be created from this pool.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 form-group">
+            <label for="description">Description</label>
+            <textarea type="text" rows="4" class="md-textarea md-textarea-auto form-control" id="description"
+                [(ngModel)]="pool.description" name="description"></textarea>
+        </div>
+
+        <div class="col-md-6">
+            <div class="alert alert-secondary">
+                <p>
+                    The description of this pool. 
+                </p>
+                <p>
+                    It should briefly explain how a character coming out from this pool will be used in the story so that the player can understand the "Mood" and write a good character in this spot.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <h4>Characters currently available in the pool</h4>
+
+            <div class="list-group">
+                <button *ngFor="let character of pool.characters" (click)="onCharacterSelect(character)"
+                    class="list-group-item list-group-item-action"
+                    [ngClass]="{ 'active': character === currentCharacter }">
+                    {{ character.name }}
+                </button>
+                <button *ngIf="pool.characters.length === 0" disabled class="list-group-item list-group-item-action">
+                    (there are currently no characters in this pool, want to add one?)
+                </button>
+            </div>
+
+            <div class="buttons-container">
+                <div class="btn-group block-group">
+                    <button class="btn btn-outline-warning" (click)="onCharacterAdd()">Add</button>
+                    <button class="btn btn-outline-warning" (click)="onCharacterEdit()"
+                        [disabled]="!isCharacterSelected">Edit</button>
+                    <button class="btn btn-outline-warning" (click)="onCharacterDelete()"
+                        [disabled]="!isCharacterSelected">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showCharacterCreator">
+    <app-character-creator [pollName]="pool.name" [character]="currentCharacter" submitButtonText="Confirm" (callOnSubmit)="onCharacterCreate($event)">
+    </app-character-creator>
+
+    <button class="btn btn-outline-warning back-to-pool-edit" (click)="showCharacterCreator = false">Back to Edit Pool</button>
+</div>

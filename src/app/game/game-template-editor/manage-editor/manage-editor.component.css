@@ -1,0 +1,12 @@
+.text-center {
+    text-align: center;
+}
+
+.manage-button-group {
+    margin-top: 20px;
+}
+
+.manage-alert {
+    margin-top: 10px;
+    display: inline-block;
+}

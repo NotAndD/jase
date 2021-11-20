@@ -1,0 +1,81 @@
+<div>
+    <div class="text-center">
+        <h3>Manage your Story</h3>
+    </div>
+
+    <div class="manage-button-group">
+        <button class="btn btn-danger" (click)="showAreYouSureDelete = true">Delete the Story</button>
+        <p>
+            Permanently delete the Story from JASE archives.
+        </p>
+        
+        <div *ngIf="showAreYouSureDelete" class="alert alert-secondary manage-alert">
+            <p>
+                Are you sure you want to delete the Story? Notice, there is NO going back from THIS.
+            </p>
+            <hr />
+            <div class="btn-group">
+                <button class="btn btn-outline-danger" (click)="onDelete()">Yes, I'm really, REALLY sure</button>
+                <button class="btn btn-outline-danger" (click)="showAreYouSureDelete = false">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="manage-button-group">
+        <button class="btn btn-warning" [disabled]="!template.wip || !isReadyToBePublished" (click)="showAreYouSurePublish = true">Publish the Story</button>
+        <p>
+            Publish the Story so that everyone can start downloading it from JASE archives.
+        </p>
+
+        <div *ngIf="!template.wip" class="alert alert-secondary manage-alert">
+            <p>
+                This story is published, it can be read either by knowing its Story ID or by going at the following URL:
+            </p>
+            <hr />
+            <input type="text" class="form-control" readonly [value]="publishUrl" />
+        </div>
+
+        <div *ngIf="template.wip && !isReadyToBePublished" class="alert alert-secondary manage-alert">
+            Before Publishing the Story, you'll need to complete it with content and configurations.
+        </div>
+
+        <div *ngIf="showAreYouSurePublish" class="alert alert-secondary manage-alert">
+            <p>
+                Confirm that you want to publish the story.
+            </p>
+            <p>
+                Don't worry, you can edit the story even if it's published to add / remove content.
+            </p>
+            <hr />
+            <div class="btn-group">
+                <button class="btn btn-outline-warning" (click)="onPublish()">Confirm</button>
+                <button class="btn btn-outline-warning" (click)="showAreYouSurePublish = false">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="manage-button-group">
+        <button class="btn btn-warning" [disabled]="template.wip" (click)="showAreYouSureUnPublish = true">UnPublish the Story</button>
+        <p>
+            Un-publish the Story, it will not be anymore available for download from JASE archives.
+        </p>
+
+        <div *ngIf="template.wip" class="alert alert-secondary manage-alert">
+            You can Un-publish the Story only if you previously published it up.
+        </div>
+        
+        <div *ngIf="showAreYouSureUnPublish" class="alert alert-secondary manage-alert">
+            <p>
+                Confirm that you want to un-publish the story.
+            </p>
+            <p>
+                Don't worry, you can always publish it again later. Notice, people that already read the story can keep reading the last version they downloaded even if it is un-published.
+            </p>
+            <hr />
+            <div class="btn-group">
+                <button class="btn btn-outline-danger" (click)="onUnPublish()">Confirm</button>
+                <button class="btn btn-outline-danger" (click)="showAreYouSureUnPublish = false">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

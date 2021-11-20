@@ -1,0 +1,28 @@
+<div>
+    <h4>Local stories</h4>
+
+    <div class="list-group">
+        <button *ngFor="let templ of localTemplates" (click)="templateSelected = templ"
+            class="list-group-item list-group-item-action" [ngClass]="{ 'active': templ === templateSelected }">
+            {{ templ.name }}
+        </button>
+
+        <button *ngIf="localTemplates.length === 0" disabled class="list-group-item list-group-item-action">
+            Sorry, looks like there are no local stories to browse!
+        </button>
+    </div>
+    <div *ngIf="!templateSelected && localTemplates.length > 0" class="margin-top-5">
+        Select a Story above to read its description
+    </div>
+    <div *ngIf="templateSelected" class="margin-top-5">
+        {{ templateSelected.description }}
+    </div>
+
+    <div *ngIf="localTemplates.length > 0">
+        <div class="button-container">
+            <button class="btn btn-outline-warning" (click)="onLocalTemplateChoice()" [disabled]="!templateSelected">
+                This one
+            </button>
+        </div>
+    </div>
+</div>
